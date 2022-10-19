@@ -2,6 +2,7 @@ import React from 'react';
 import Input from "./components/Input";
 import './App.css';
 import {Todo} from "./model";
+import TodoList from "./components/todoList";
 
 const App: React.FC = () => {
     const [todo, setTodo] = React.useState<string>("");
@@ -9,14 +10,10 @@ const App: React.FC = () => {
 
     const handleAddTodo = (e: React.FormEvent) => {
         e.preventDefault();
-        const newTodo = {
-            id: new Date().getTime(),
-            text: todo,
-            complete: false
-        };
-        // @ts-ignore
-        setTodos([...todos, newTodo]);
-        setTodo("");
+
+        if (todo.length > 0) {
+            setTodos([...todos, {id: Date.now(), todo, isDone: false}]);
+        }
     }
 
     console.log(todos);
@@ -28,6 +25,9 @@ const App: React.FC = () => {
                         <div className="card-body">
                             <h1 className="text-center">Todo App</h1>
                             <Input todo={todo} setTodo={setTodo} handleAddTodo={handleAddTodo}/>
+                            <div className="mt-4">
+
+                            </div>
                         </div>
                     </div>
                 </div>
