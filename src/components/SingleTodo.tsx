@@ -25,25 +25,47 @@ const SingleTodo: React.FC<Props> = ({todo, setTodos, todos}: Props) => {
     }
     // @ts-ignore
     return (
-        <form>
-            <div className="form-check">
+        <div className="d-flex flex-row justify-content-between">
+            <div className="d-flex flex-row w-200">
                 {edit ? (
+                    <>
                     <input
                         type="text"
                         className="form-control"
+                        style={{width: "300px"}}
                         value={editTodo}
                         onChange={(e) => setEditTodo(e.target.value)}
                     />
+
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-primary btn-block w-25 mx-2"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setTodos(todos.map((todo) => todo.id === todo.id ? {...todo, todo: editTodo} : todo));
+                            setEdit(false);
+                        }}
+                    />
+                    </>
                 ) : (
-                    <label className="form-check-label" style={{textDecoration: todo.isDone ? "line-through" : ""}}>
+                    <label className="form-check-label" style={{textDecoration: todo.isDone ? "line-through" : "", width: '400px'}}>
                         {todo.todo}
                     </label>
                 )}
             </div>
-            <MdEdit onClick={() => {if (!edit && todo.isDone) return; setEdit(!edit)}}/>
-            <MdDone onClick={() => handleDone(todo.id)}/>
-            <VscTrash onClick={() => handleDelete(todo.id)}/>
-        </form>
+            <div className="d-flex flex-row align-items-center" style={{gap: '10px'}}>
+                <MdEdit
+                    fill={edit ? "green" : "blue"}
+                    onClick={() => {if (!edit && todo.isDone) return; setEdit(!edit)}}/>
+                <MdDone
+                    fill={todo.isDone ? "green" : "blue"}
+                    onClick={() => handleDone(todo.id)}/>
+                <VscTrash
+                    fill={todo.isDone ? "red" : "blue"}
+                    onClick={() => handleDelete(todo.id)}/>
+            </div>
+        </div>
     );
 }
 

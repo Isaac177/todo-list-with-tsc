@@ -14,6 +14,7 @@ const App: React.FC = () => {
         if (todo.length > 0) {
             setTodos([...todos, {id: Date.now(), todo, isDone: false}]);
         }
+        setTodo("");
     }
 
     console.log(todos);
