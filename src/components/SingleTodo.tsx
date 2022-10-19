@@ -1,11 +1,13 @@
 import * as React from 'react';
 import {Todo} from "../model";
+import {MdDone, MdEdit} from 'react-icons/md';
+import {VscTrash} from "react-icons/vsc";
 
 
 interface Props {
     todo: Todo;
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-    todos: string[];
+    todos: Todo[]
 }
 
 const SingleTodo: React.FC<Props> = ({todo, setTodos, todos}: Props) => {
@@ -21,8 +23,6 @@ const SingleTodo: React.FC<Props> = ({todo, setTodos, todos}: Props) => {
         // @ts-ignore
         setTodos(todos.filter((todo) => todo.id !== id));
     }
-
-
     // @ts-ignore
     return (
         <form>
@@ -40,15 +40,9 @@ const SingleTodo: React.FC<Props> = ({todo, setTodos, todos}: Props) => {
                     </label>
                 )}
             </div>
-            <i className="fas fa-edit text-success mr-3"
-                onClick={() => {if (!edit && todo.isDone) return; setEdit(!edit)}}
-            />
-            <i className="fas fa-check text-success mr-3"
-                onClick={() => handleDone(todo.id)}
-            />
-            <i className="fas fa-trash-alt text-danger"
-                onClick={() => handleDelete(todo.id)}
-            />
+            <MdEdit onClick={() => {if (!edit && todo.isDone) return; setEdit(!edit)}}/>
+            <MdDone onClick={() => handleDone(todo.id)}/>
+            <VscTrash onClick={() => handleDelete(todo.id)}/>
         </form>
     );
 }

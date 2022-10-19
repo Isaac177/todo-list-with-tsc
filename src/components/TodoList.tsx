@@ -5,10 +5,9 @@ import SingleTodo from "./SingleTodo";
 interface TodoListProps {
     todos: Todo[];
     setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-
 }
 
-const TodoList: React.FC<TodoListProps> = ({todos, setTodos, }) => {
+const TodoList: React.FC<TodoListProps> = ({todos, setTodos}) => {
 
     return (
         <ul className="list-group">
